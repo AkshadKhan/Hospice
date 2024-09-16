@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sign Up Form -->
+        <div id="signup-container">
+            <h2>Sign Up</h2>
+            <form id="signup-form" action="/send-otp" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+
+                <label for="aadhaar">Aadhaar Number:</label>
+                <input type="text" id="aadhaar" name="aadhaar" placeholder="Enter Aadhaar Number" required>
+
+                <button type="submit">Send OTP</button>
+            </form>
+
+            <form id="otp-form" action="/verify-otp" method="post" style="display:none;">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" name="otp" required>
+
+                <button type="submit">Verify OTP</button>
+            </form>
+
+            <p>Already have an account? <a href="#" onclick="showLogin()">Log in</a></p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-container" style="display:none;">
+            <h2>Login</h2>
+            <form id="login-form" action="/send-otp-login" method="post">
+                <label for="login-aadhaar">Aadhaar Number:</label>
+                <input type="text" id="login-aadhaar" name="aadhaar" placeholder="Enter Aadhaar Number" required>
+
+                <button type="submit">Send OTP</button>
+            </form>
+
+            <form id="otp-form-login" action="/verify-otp-login" method="post" style="display:none;">
+                <label for="login-otp">Enter OTP:</label>
+                <input type="text" id="login-otp" name="otp" required>
+
+                <button type="submit">Verify OTP</button>
+            </form>
+
+            <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        function showSignUp() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('signup-container').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('signup-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        }
+
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('otp-form').style.display = 'block';
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('otp-form-login').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
